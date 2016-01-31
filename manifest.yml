@@ -1,6 +1,6 @@
 applications:
 - path: auth-otp.jar
-  memory: 256M
+  memory: 128M
 #  instances: 1
 #  domain: ng.mybluemix.net
 #  name: auth-otp

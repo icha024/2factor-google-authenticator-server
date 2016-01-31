@@ -46,7 +46,7 @@ public class PasscodeGenerator {
   public static final int INTERVAL = 30;
 
   /** Default decimal passcode length */
-  private static final int PASS_CODE_LENGTH = 6;
+  public static final int PASS_CODE_LENGTH = 6;
 
   /** The number of previous and future intervals to check */
   private static final int ADJACENT_INTERVALS = 1;
