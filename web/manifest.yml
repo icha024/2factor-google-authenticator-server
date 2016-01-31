@@ -1,7 +1,7 @@
 applications:
-- path: auth-otp.jar
+- path: googleauth-totp-web.jar
   memory: 128M
-#  instances: 1
+#  instances: 4
 #  domain: ng.mybluemix.net
 #  name: auth-otp
 #  host: auth-otp

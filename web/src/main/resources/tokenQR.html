@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Token QR Code</title>
+    <meta name="author" content="Ian Chan" />
+    <!-- Project source code: https://github.com/icha024/GoogleAuth-TOTP -->
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- See: https://github.com/davidshimjs/qrcodejs -->
+    <script type="text/javascript"
+            src="https://cdn.rawgit.com/davidshimjs/qrcodejs/master/qrcode.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+                var uid = getUrlParameter('uid');
+                var key = getUrlParameter('key');
+                var issuer = getUrlParameter('issuer');
+                issuer = (issuer == undefined) ? "clianz.com" : issuer;
+
+                var data = "otpauth://totp/" + uid + "?secret=" + key + "&issuer=" + issuer
+                new QRCode(document.getElementById("qrcode"), data);
+         });
+
+         var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+<h1 id="title">Token Seed</h1>
+<br/>
+<div id="qrcode"></div>
+</body>
+</html>
