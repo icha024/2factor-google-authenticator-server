@@ -15,7 +15,7 @@
  */
 package com.clianz.totp;
 
-import com.clianz.totp.google.PasscodeGenerator;
+import com.clianz.totp.gauth.PasscodeGenerator;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;

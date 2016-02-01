@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.clianz.totp.google;
+
+package com.clianz.totp.gauth;
 
 import java.util.HashMap;
 import java.util.Locale;
+
+/* IAN: This code has been modified from the original to create a standalone TOTP validator.
+*       Original version available at: https://github.com/google/google-authenticator-android
+*/
 
 /**
  * Encodes arbitrary byte arrays as case-insensitive base-32 strings.
@@ -35,7 +40,7 @@ public class Base32String {
   // singleton
 
   private static final Base32String INSTANCE =
-    new Base32String("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"); // RFC 4648/3548
+          new Base32String("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"); // RFC 4648/3548
 
   static Base32String getInstance() {
     return INSTANCE;

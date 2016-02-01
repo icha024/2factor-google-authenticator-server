@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Ian Chan
+ * Copyright 2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package com.clianz.totp;
 
-import com.clianz.totp.google.PasscodeGenerator;
+import com.clianz.totp.gauth.PasscodeGenerator;
 
 import java.security.GeneralSecurityException;
 
-import static com.clianz.totp.google.PasscodeGenerator.getSigningOracle;
+import static com.clianz.totp.gauth.PasscodeGenerator.getSigningOracle;
 
 /**
  * Validator for a OTP token codes.
@@ -29,7 +29,7 @@ import static com.clianz.totp.google.PasscodeGenerator.getSigningOracle;
 public class TokenCodeValidator {
 
 	/**
-	 * Validate a Time-based One Time Passcode
+	 * A simple wrapper method for validating Time-based One Time Passcode.
 	 *
 	 * @param secretKey key generating the code.
 	 * @param code token to validate.

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.clianz.totp.google;
+
+package com.clianz.totp.gauth;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInput;
@@ -28,6 +29,10 @@ import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+/* IAN: This code has been modified from the original to create a standalone TOTP validator.
+*       Original version available at: https://github.com/google/google-authenticator-android
+*/
+
 /**
  * An implementation of the HOTP generator specified by RFC 4226. Generates
  * short passcodes that may be used in challenge-response protocols or as
@@ -39,22 +44,24 @@ import javax.crypto.spec.SecretKeySpec;
  *
  */
 public class PasscodeGenerator {
+
   private final static Logger LOGGER = Logger.getLogger(PasscodeGenerator.class.getName());
+
   private static final int MAX_PASSCODE_LENGTH = 9;
 
   /** Default time interval */
   public static final int INTERVAL = 30;
 
   /** Default decimal passcode length */
-  public static final int PASS_CODE_LENGTH = 6;
+  private static final int PASS_CODE_LENGTH = 6;
 
   /** The number of previous and future intervals to check */
   private static final int ADJACENT_INTERVALS = 1;
 
   /** Powers of 10 used to shorten the pin to the desired number of digits */
   private static final int[] DIGITS_POWER
-      // 0 1  2   3    4     5      6       7        8         9
-      = {1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
+          // 0 1  2   3    4     5      6       7        8         9
+          = {1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
 
   private final Signer signer;
   private final int codeLength;
@@ -99,8 +106,8 @@ public class PasscodeGenerator {
   public PasscodeGenerator(Signer signer, int passCodeLength) {
     if ((passCodeLength < 0) || (passCodeLength > MAX_PASSCODE_LENGTH)) {
       throw new IllegalArgumentException(
-        "PassCodeLength must be between 1 and " + MAX_PASSCODE_LENGTH
-        + " digits.");
+              "PassCodeLength must be between 1 and " + MAX_PASSCODE_LENGTH
+                      + " digits.");
     }
     this.signer = signer;
     this.codeLength = passCodeLength;
@@ -120,7 +127,7 @@ public class PasscodeGenerator {
    * @throws GeneralSecurityException If a JCE exception occur
    */
   public String generateResponseCode(long state)
-      throws GeneralSecurityException {
+          throws GeneralSecurityException {
     byte[] value = ByteBuffer.allocate(8).putLong(state).array();
     return generateResponseCode(value);
   }
@@ -133,15 +140,15 @@ public class PasscodeGenerator {
    * @throws GeneralSecurityException If a JCE exception occur
    */
   public String generateResponseCode(long state, byte[] challenge)
-      throws GeneralSecurityException {
+          throws GeneralSecurityException {
     if (challenge == null) {
       return generateResponseCode(state);
     } else {
       // Allocate space for combination and store.
       byte value[] = ByteBuffer.allocate(8 + challenge.length)
-                               .putLong(state)  // Write out OTP state
-                               .put(challenge, 0, challenge.length) // Concatenate with challenge.
-                               .array();
+              .putLong(state)  // Write out OTP state
+              .put(challenge, 0, challenge.length) // Concatenate with challenge.
+              .array();
       return generateResponseCode(value);
     }
   }
@@ -152,7 +159,7 @@ public class PasscodeGenerator {
    * @throws GeneralSecurityException If a JCE exception occur
    */
   public String generateResponseCode(byte[] challenge)
-      throws GeneralSecurityException {
+          throws GeneralSecurityException {
     byte[] hash = signer.sign(challenge);
 
     // Dynamically truncate the hash
@@ -173,7 +180,7 @@ public class PasscodeGenerator {
    */
   private int hashToInt(byte[] bytes, int start) {
     DataInput input = new DataInputStream(
-        new ByteArrayInputStream(bytes, start, bytes.length - start));
+            new ByteArrayInputStream(bytes, start, bytes.length - start));
     int val;
     try {
       val = input.readInt();
@@ -189,7 +196,7 @@ public class PasscodeGenerator {
    * @return True if the response is valid
    */
   public boolean verifyResponseCode(long challenge, String response)
-      throws GeneralSecurityException {
+          throws GeneralSecurityException {
     String expectedResponse = generateResponseCode(challenge, null);
     return expectedResponse.equals(response);
   }
@@ -203,9 +210,9 @@ public class PasscodeGenerator {
    * @return True if the timeout code is valid
    */
   public boolean verifyTimeoutCode(long currentInterval, String timeoutCode)
-      throws GeneralSecurityException {
+          throws GeneralSecurityException {
     return verifyTimeoutCode(timeoutCode, currentInterval,
-                             ADJACENT_INTERVALS, ADJACENT_INTERVALS);
+            ADJACENT_INTERVALS, ADJACENT_INTERVALS);
   }
 
   /**
@@ -214,20 +221,20 @@ public class PasscodeGenerator {
    * checked.
    *
    * @param timeoutCode The timeout code
-   * @param futureIntervals The number of future intervals to check
    * @param pastIntervals The number of past intervals to check
+   * @param futureIntervals The number of future intervals to check
    * @return True if the timeout code is valid
    */
   public boolean verifyTimeoutCode(String timeoutCode,
                                    long currentInterval,
-                                   int futureIntervals,
-                                   int pastIntervals) throws GeneralSecurityException {
+                                   int pastIntervals,
+                                   int futureIntervals) throws GeneralSecurityException {
     // Ensure that look-ahead and look-back counts are not negative.
-    futureIntervals = Math.max(futureIntervals, 0);
     pastIntervals = Math.max(pastIntervals, 0);
+    futureIntervals = Math.max(futureIntervals, 0);
 
-    // Try upto "futureIntervals" before current time, and upto "pastIntervals" after.
-    for (int i = -futureIntervals; i <= pastIntervals; ++i) {
+    // Try upto "pastIntervals" before current time, and upto "futureIntervals" after.
+    for (int i = -pastIntervals; i <= futureIntervals; ++i) {
       String candidate = generateResponseCode(currentInterval - i, null);
       if (candidate.equals(timeoutCode)) {
         return true;
@@ -236,6 +243,8 @@ public class PasscodeGenerator {
 
     return false;
   }
+
+  /* IAN: This method was ported from AccountDB.java to allow for a standalone TOTP validator. */
 
   public static Signer getSigningOracle(String secret) {
     try {
