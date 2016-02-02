@@ -15,7 +15,6 @@
  */
 package com.clianz.totp;
 
-import com.clianz.totp.gauth.PasscodeGenerator;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -47,7 +46,7 @@ public class WebApplication {
 		Integer port = getEnvProperty("PORT", 8080);
 		Integer pastInterval = getEnvProperty("otp.interval.past", 0);
 		Integer futureInterval = getEnvProperty("otp.interval.future", 0);
-		Integer passcodeLength = getEnvProperty("otp.passcode.length", PasscodeGenerator.PASS_CODE_LENGTH);
+		Integer passcodeLength = getEnvProperty("otp.passcode.length", 6);
 
 		LOGGER.info("Listening to port: " + port);
 		LOGGER.info("Max past interval: " + pastInterval);

@@ -5,5 +5,5 @@ This is the server-side component for validating Google Authenticator's **Time-b
 The core logic is extracted from the Android version of [Google Authenticator](https://github.com/google/google-authenticator-android). This means you may fork the Google Authenticator project, or just download it from the app store, and it will work with that straight out the box!
 
 ## Packaged in two modules
-- **Validator** package is a library component that exposed a simple method for validating the TOPT. This is convienient if you wish you build your own 2FA server for validation.
+- **Validator** package is a library component that exposed a simple method for validating the TOTP. This is convenient if you wish you build your own 2FA server for validation.
 - **Web** package is a pre-built, simple and high performance, micro-service using the TOTP validator library for you to deploy easily.
