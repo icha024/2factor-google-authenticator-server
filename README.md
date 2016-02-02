@@ -1,4 +1,4 @@
-# GoogleAuth-TOTP
+# TOTP Validation Server for Google Authenticator
 
 This is the server-side component for validating Google Authenticator's **Time-based One Time Password (TOTP)** as described in [RFC-6238](https://tools.ietf.org/html/rfc6238), commonly used for Two Factor Authentication (2FA).
 
