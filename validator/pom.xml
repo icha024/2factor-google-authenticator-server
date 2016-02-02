@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.clianz</groupId>
-		<artifactId>googleauth-totp-parent</artifactId>
+		<artifactId>gauth-totp-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>googleauth-totp-validator</artifactId>
+	<artifactId>gauth-totp-validator</artifactId>
 	<packaging>jar</packaging>
-	<name>googleauth-totp-validator</name>
+	<name>gauth-totp-validator</name>
 	<description>Time-based One Time Passcode (TOTP) Authenticator Library</description>
 </project>

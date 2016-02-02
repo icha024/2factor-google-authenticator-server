@@ -1,4 +1,4 @@
 FROM java:8
-ADD googleauth-totp-web.jar googleauth-totp-web.jar
+ADD gauth-totp-web.jar gauth-totp-web.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-DPORT=8080","-jar","googleauth-totp-web.jar"]
+ENTRYPOINT ["java","-DPORT=8080","-jar","gauth-totp-web.jar"]

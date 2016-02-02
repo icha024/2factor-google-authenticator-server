@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.clianz</groupId>
-		<artifactId>googleauth-totp-parent</artifactId>
+		<artifactId>gauth-totp-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>googleauth-totp-web</artifactId>
+	<artifactId>gauth-totp-web</artifactId>
 	<packaging>jar</packaging>
-	<name>googleauth-totp-web</name>
+	<name>gauth-totp-web</name>
 	<description>Time-based One Time Passcode (TOTP) Authenticator Server Component</description>
 	<dependencies>
 		<dependency>
@@ -18,7 +18,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.clianz</groupId>
-			<artifactId>googleauth-totp-validator</artifactId>
+			<artifactId>gauth-totp-validator</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
@@ -35,7 +35,7 @@
 						</goals>
 						<phase>package</phase>
 						<configuration>
-							<outputFile>googleauth-totp-web.jar</outputFile>
+							<outputFile>gauth-totp-web.jar</outputFile>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.clianz.totp.WebApplication</mainClass>
