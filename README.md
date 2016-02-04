@@ -8,7 +8,7 @@ The core logic is extracted from the Android version of [Google Authenticator](h
 - **Web** package is a pre-built, simple and high performance, micro-service using the TOTP validator library for you to deploy easily.
 - **Validator** package is a library component that exposed a simple method for validating the TOTP. This is convenient if you wish you build your own 2FA server for validation.
 
-## TOTP Validation Server (Web module)
+## (Web) Validation Server
 
 #### Installing
 (TODO)
@@ -17,7 +17,7 @@ The core logic is extracted from the Android version of [Google Authenticator](h
 (TODO)
 
 #### High Performance Validator
-Build on Undertow Web Server, this can handle over 31,000 transaction per second on i7 4790S (4GHz) dev box running Ubuntu 14.04
+Build on Undertow Web Server, this can handle over 31,000 transactions per second on a i7 4790S (4GHz) dev box running Ubuntu 14.04
 
 ```
 $ siege -t 60s -b http://localhost:8080/aaaabbbbcccc/121212
@@ -40,7 +40,7 @@ Longest transaction:	        0.02
 Shortest transaction:	        0.00
 ```
 
-## TOTP Validator Library (Validator module)
+## (Validator) Validation Library
 For anyone wanting to reuse the validation module and build their own service.
 
 #### Installing with Maven
