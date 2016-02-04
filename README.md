@@ -6,7 +6,7 @@ The core logic is extracted from the Android version of [Google Authenticator](h
 
 # Packaged in two modules
 - **Web** package is a pre-built, simple and high performance, micro-service using the TOTP validator library for you to deploy easily.
-- **Validator** package is a library component that exposed a simple method for validating the TOTP. This is convenient if you wish you build your own 2FA server for validation.
+- **Validator** package is a library component, used by the web server, for validating the TOTP. This is convenient if you wish you build your own 2FA server for validation.
 
 ## (Web) Validation Server
 
@@ -41,7 +41,7 @@ Shortest transaction:	        0.00
 ```
 
 ## (Validator) Validation Library
-For anyone wanting to reuse the validation module and build their own service.
+For anyone wanting to reuse the validation module and build their own 2FA service.
 
 #### Installing with Maven
 (TODO)
