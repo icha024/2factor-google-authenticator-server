@@ -17,7 +17,7 @@ The core logic is extracted from the Android version of [Google Authenticator](h
 (TODO)
 
 #### High Performance Validator
-Build on Undertow Web Server, this can handle over 31,000 transactions per second on a i7 4790S (4GHz) dev box running Ubuntu 14.04
+Build on Undertow server, this can handle over 31,000 transactions per second on a Core i7 4790S (4GHz) dev box running Ubuntu 14.04
 
 ```
 $ siege -t 60s -b http://localhost:8080/aaaabbbbcccc/121212
@@ -48,3 +48,10 @@ For anyone wanting to reuse the validation module and build their own service.
 
 #### Usage
 (TODO)
+
+## License
+
+Version 2.0 of the Apache License.
+
+## Requirements
+- Java 1.8+
