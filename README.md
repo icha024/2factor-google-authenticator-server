@@ -10,13 +10,13 @@ The core logic is extracted from the Android version of [Google Authenticator](h
 
 ## TOTP Validation Server (Web module)
 
-### Installing
+#### Installing
 (TODO)
 
-### Usage
+#### Usage
 (TODO)
 
-### High Performance Validator
+#### High Performance Validator
 Build on Undertow Web Server, this can handle over 31,000 transaction per second on i7 4790S (4GHz) dev box running Ubuntu 14.04
 
 ```
@@ -43,8 +43,8 @@ Shortest transaction:	        0.00
 ## TOTP Validator Library (Validator module)
 For anyone wanting to reuse the validation module and build their own service.
 
-### Installing with Maven
+#### Installing with Maven
 (TODO)
 
-### Usage
+#### Usage
 (TODO)
