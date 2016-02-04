@@ -22,6 +22,7 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Server side application for Google Authenticator's Time-based One Time Password (TOPT)
@@ -35,6 +36,9 @@ public class WebApplication {
 	private static final String JSON_CONTENT_TYPE = "application/json";
 	private static final String RESULT_SUCCESS = "{\"result\":\"success\"}";
 	private static final String RESULT_FAILED = "{\"result\":\"failed\"}";
+
+	private static final Pattern KEY_PATTERN = Pattern.compile("^[0-9a-zA-Z\\-=]+$");
+	private static final Pattern CODE_PATTERN = Pattern.compile("^[\\d]+$");
 
 	private TokenCodeValidator totpCodeValidator = new TokenCodeValidator();
 
@@ -57,6 +61,13 @@ public class WebApplication {
 				.setHandler(Handlers.pathTemplate().add("/{key}/{code}", (AsyncHttpHandler) exchange -> {
 					String key = exchange.getQueryParameters().get("key").getFirst();
 					String code = exchange.getQueryParameters().get("code").getFirst();
+
+					if (!KEY_PATTERN.matcher(key).matches() || !CODE_PATTERN.matcher(code).matches()) {
+						exchange.getResponseSender().send(RESULT_FAILED);
+						LOGGER.info("Invalid input");
+						return;
+					}
+
 					boolean success = totpCodeValidator.validateTOTP(key, code, passcodeLength, pastInterval, futureInterval);
 
 					exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, JSON_CONTENT_TYPE);
