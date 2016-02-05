@@ -1,4 +1,5 @@
 # TOTP Validation Server for Google Authenticator
+[![Build Status](https://travis-ci.org/icha024/GAuth-TOTP.svg?branch=master)](https://travis-ci.org/icha024/GAuth-TOTP)
 
 This is the server-side component for validating Google Authenticator's **Time-based One Time Password (TOTP)** as described in [RFC-6238](https://tools.ietf.org/html/rfc6238), commonly used for Two Factor Authentication (2FA).
 
